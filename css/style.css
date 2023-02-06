@@ -1,0 +1,96 @@
+:root {
+  --primaryColor: #8d99ae;
+  --secondaryColor: #2b2d42;
+  --antiFlash: #edf2f4;
+  --accentColor: #ef767a;
+
+}
+
+body {
+  background-color: var(--primaryColor);
+  width: 90vw;
+  margin: auto;
+  color: var(--antiFlash);
+}
+
+nav {
+  height: 5vh;
+}
+
+
+.glass {
+  width: 90vw;
+  height: 90vh;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  display: grid;
+  grid-template-columns: 15% 1fr 1fr 1fr;
+  grid-template-rows: 3fr .25fr 2fr;
+}
+
+.glass ul {
+  column-gap: 6px;
+  grid-row: 1 / 4;
+  background-color: var(--secondaryColor);
+  border-radius: 20px;
+  margin: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+
+.glass li {
+  font-size: 1.25rem;
+  list-style-type: none;
+}
+
+.glass li:hover {
+  transform: translateX(10px);
+}
+
+.itemChoices {
+  grid-column: 2 /5;
+  grid-row: 1 / 2;
+  display: flex;
+}
+
+.choice1,
+.choice2,
+.choice3 {
+  width: 33%;
+  height: 100%;
+  background-color: var(--secondaryColor);
+  border-radius: 20px;
+  margin: 10px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.choice1:hover,
+.choice2:hover,
+.choice3:hover {
+  transform: translateY(-10px);
+}
+
+article {
+  background-color: var(--secondaryColor);
+  grid-row: 3/ 4;
+  grid-column: 2 / 5;
+  border-radius: 20px;
+  margin: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+article h4 {
+  font-size: 1.25rem;
+  padding: 20px;
+}
+
+footer {
+  height: 5vh;
+}
