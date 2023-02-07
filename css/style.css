@@ -20,7 +20,7 @@ nav {
 
 .glass {
   width: 90%;
-  height: 90%;
+  height: 90vh;
   margin: auto;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -38,10 +38,14 @@ nav {
   background-color: var(--secondaryColor);
   border-radius: 20px;
   margin: 20px;
+  padding: 5px;
   display: inline-flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
 
+#resultsButton {
+  width: 80%;
 }
 
 .glass li {
