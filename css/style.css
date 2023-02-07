@@ -8,7 +8,7 @@
 
 body {
   background-color: var(--primaryColor);
-  width: 90vw;
+  width: 90%;
   margin: auto;
   color: var(--antiFlash);
 }
@@ -19,8 +19,8 @@ nav {
 
 
 .glass {
-  width: 90vw;
-  height: 90vh;
+  width: 90%;
+  height: 90%;
   margin: auto;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -68,11 +68,35 @@ nav {
   margin: 10px;
   margin-top: 20px;
   margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.choice1 img,
+.choice2 img,
+.choice3 img {
+  width: 300px;
+  height: 320px;
+  padding-top: 20px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.button {
+  background-color: var(--accentColor);
+  border-radius: 20px;
+  margin: 10px auto;
+  width: 50%;
+  height: 10%;
+  text-align: center;
+  padding: 0;
 }
 
 
 article {
-  background-color: var(--accentColor);
+  background-color: var(--secondaryColor);
   grid-row: 3/ 4;
   grid-column: 2 / 5;
   border-radius: 20px;

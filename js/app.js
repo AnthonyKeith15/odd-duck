@@ -5,23 +5,76 @@ function Product(name, filepath) {
     this.filePath = filepath;
     this.numOfTimesShown = 0;
     this.numOfTimesSelected = 0;
+};
+
+// all object initialization
+let rollingBag = new Product('R2D2 Bag', "img/bag.jpg");
+let bananaSlicer = new Product('Banana slicer', "img/banana.jpg");
+let tpIpad = new Product('Ipad & TP Holder', "img/bathroom.jpg");
+let toelessBoots = new Product('Toeless Boots', "img/boots.jpg");
+let futureToaster = new Product('Toaster of 3023', "img/breakfast.jpg");
+let meatGum = new Product('MeatBall Gum', "img/bubblegum.jpg");
+let redChair = new Product('Convex Chair', "img/chair.jpg");
+let evilToy = new Product('Cthulhu Toy', "img/cthulhu.jpg");
+let duckbillMuzzle = new Product('Duckbill Muzzle', "img/dog-duck.jpg");
+let dragonMeat = new Product('Dragon Meat', "img/dragon.jpg");
+let penSilverware = new Product('Pen Silverware', "img/pen.jpg");
+let pawMop = new Product('Paw Mop', "img/pet-sweep.jpg");
+let pizzaScissors = new Product('Pizza Scissors', "img/scissors.jpg");
+let sharkBlanket = new Product('Shark Blanket', "img/shark.jpg");
+let babyMop = new Product('Baby Mop', "img/sweep.png");
+let tauntaunBlanket = new Product('Tauntaun Blanket', "img/tauntaun.jpg");
+let unicornMeat = new Product('Unicorn Meat', "img/unicorn.jpg");
+let wateringCan = new Product('Unlimited Watering Can', "img/water-can.jpg");
+let wineGlass = new Product('Wine Glass', "img/wine-glass.jpg");
+
+// Global Variable
+let allProductsArray = [rollingBag, bananaSlicer, tpIpad, toelessBoots, futureToaster, meatGum, redChair, evilToy, duckbillMuzzle, 
+    dragonMeat, penSilverware, pawMop, pizzaScissors, sharkBlanket, babyMop, tauntaunBlanket, unicornMeat, wateringCan, wineGlass];
+    let numberOfMatchUps = 0;
+    let numberOfMatchupsAllowed = 25;
+
+// DOM Elements
+// Selects and saves indivdual cards and buttons as seperate variables for manipulation later
+let leftImage = document.getElementById('leftImage');
+let leftButton = document.getElementById('leftButton');
+let centerImage = document.getElementById('centerImage');
+let centerButton = document.getElementById('centerButton');
+let rightImage = document.getElementById('rightImage');
+let rightButton = document.getElementById('rightButton');
+
+
+// functions
+function getRandomIndex() {
+    let productChoices = allProductsArray;
+    return Math.floor(Math.random() * (productChoices.length));
 }
 
-// all object declaration
-let rollingBag = new Product('R2D2 Bag', "../img/bag.jpg")
+function renderProduct() {
+    let product1 = allProductsArray[getRandomIndex()];
+    product1.numOfTimesShown++;
+    let product2 = allProductsArray[getRandomIndex()];
+    product2.numOfTimesShown++;
+    let product3 = allProductsArray[getRandomIndex()];
+    product3.numOfTimesShown++;
+    if (product1 === product2) {
+        product2 = allProductsArray[getRandomIndex()];
+    }
+    if (product3 === product1 || product3 === product2){
+        product3 = allProductsArray[getRandomIndex()];
+    }
+    leftImage.src = product1.filePath;
+    leftImage.alt = product1.productName;
+    centerImage.src = product2.filePath;
+    centerImage.alt = product2.productName;
+    rightImage.src = product3.filePath
+    rightImage.alt = product3.productName;
+}
 
 
-
+renderProduct();
 /*
-As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.
 
-Create a constructor function that creates an object associated with each product, and has the following properties:
-Name of the product
-File path of image
-Times the image has been shown
-Create an algorithm that will randomly generate three unique product images from the images directory and display them side-by-side-by-side in the browser window.
-
-For each of the three images, increment its property of times it has been shown by one.
 
 Attach an event listener to the section of the HTML page where the images are going to be displayed.
 
@@ -33,11 +86,7 @@ In the constructor function define a property to hold the number of times a prod
 
 After every selection by the viewer, update the newly added property to reflect if it was clicked.
 
-As a user, I would like to control the number of rounds a user is presented with so that I can control the voting session duration.
-By default, the user should be presented with 25 rounds of voting before ending the session.
-Keep the number of rounds in a variable to allow the number to be easily changed for debugging and testing purposes.
 As a user, I would like to view a report of results after all rounds of voting have concluded so that I can evaluate which products were the most popular.
-Create a property attached to the constructor function itself that keeps track of all the products that are currently being considered.
 
 After voting rounds have been completed, remove the event listeners on the product.
 
