@@ -1,8 +1,24 @@
 'use strict'
 
-function Product(nameOfProduct = {}, filePath) {
-
+function Product(name = {}, filepath) {
+    let productName = this.name;
+    let filePath = this.filePath;
+    let numOfTimesShown = 0;
+    let numOfTimesChosen = 0;
 }
+
+//globals
+
+let roundsOfVoting = 25;
+let productArray = [];
+let productCombinationArray = [];
+function sayHi(number) {
+    return number += 1
+}
+let a = 1;
+sayHi(a);
+console.log(a);
+
 /*
 As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.
 
