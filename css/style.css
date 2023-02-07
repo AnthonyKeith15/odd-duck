@@ -49,9 +49,7 @@ nav {
   list-style-type: none;
 }
 
-.glass li:hover {
-  transform: translateX(10px);
-}
+
 
 .itemChoices {
   grid-column: 2 /5;
@@ -71,14 +69,9 @@ nav {
   margin-right: 20px;
 }
 
-.choice1:hover,
-.choice2:hover,
-.choice3:hover {
-  transform: translateY(-10px);
-}
 
 article {
-  background-color: var(--secondaryColor);
+  background-color: var(--accentColor);
   grid-row: 3/ 4;
   grid-column: 2 / 5;
   border-radius: 20px;
