@@ -29,8 +29,7 @@ let wateringCan = new Product('Unlimited Watering Can', "img/water-can.jpg");
 let wineGlass = new Product('Wine Glass', "img/wine-glass.jpg");
 
 // Global Variable
-let allProductsArray = [rollingBag, bananaSlicer, tpIpad, toelessBoots, futureToaster, meatGum, redChair, evilToy, duckbillMuzzle,
-  dragonMeat, penSilverware, pawMop, pizzaScissors, sharkBlanket, babyMop, tauntaunBlanket, unicornMeat, wateringCan, wineGlass];
+let allProductsArray = [];
 let indexQueueArray = [];
 let numberOfMatchUps = 0;
 let numberOfMatchupsAllowed = 25;
@@ -47,6 +46,37 @@ let rightButton = document.getElementById('rightButton');
 
 
 // functions
+
+function setDefaultArray() {
+  allProductsArray = [rollingBag, bananaSlicer, tpIpad, toelessBoots, futureToaster, meatGum, redChair, evilToy, duckbillMuzzle,
+    dragonMeat, penSilverware, pawMop, pizzaScissors, sharkBlanket, babyMop, tauntaunBlanket, unicornMeat, wateringCan, wineGlass];
+}
+
+function retrieveProductArrayFromLocalStorage() {
+  //we get it using the key we picked (in my case 'productArray')
+  let itemComingFromLocalStorage = localStorage.getItem('productArray');
+  //confirming that data was data returned from local storage
+  if (itemComingFromLocalStorage) {
+    let retrievedItemObj = JSON.parse(itemComingFromLocalStorage);
+    allProductsArray = retrievedItemObj;
+    renderProduct();
+  } else {
+    setDefaultArray();
+    renderProduct();
+  }
+}
+
+
+function saveProductArrayToLocalStorage() {
+  let itemGoingToLocalStorage = allProductsArray;
+  //pack it turning our data into a string
+  let stringify = JSON.stringify(itemGoingToLocalStorage);
+  //label it
+  //store it
+  localStorage.setItem('productArray', stringify);
+}
+
+
 function getRandomIndex() {
   return Math.floor(Math.random() * (allProductsArray.length));
 }
@@ -68,6 +98,7 @@ function renderProduct() {
   allProductsArray[product1].numOfTimesShown++;
   allProductsArray[product2].numOfTimesShown++;
   allProductsArray[product3].numOfTimesShown++;
+  saveProductArrayToLocalStorage();
   leftImage.src = allProductsArray[product1].filePath;
   leftImage.alt = allProductsArray[product1].productName;
   centerImage.src = allProductsArray[product2].filePath;
@@ -85,9 +116,10 @@ function voteHandler(event) {
     renderProduct();
     numberOfMatchUps++;
   }
-  for (let i = 0; i < allProductsArray.length; i++){
-    if (allProductsArray[i].productName === imageNodeAlt){
+  for (let i = 0; i < allProductsArray.length; i++) {
+    if (allProductsArray[i].productName === imageNodeAlt) {
       allProductsArray[i].numOfTimesSelected++;
+      saveProductArrayToLocalStorage();
     }
   }
   let rounds = numberOfMatchUps;
@@ -100,7 +132,7 @@ function voteHandler(event) {
 function resultHandler() {
   // Selects the ul by id 
   let resultsList = document.getElementById('resultsList');
-  for (let i = 0; i < allProductsArray.length; i++){
+  for (let i = 0; i < allProductsArray.length; i++) {
     let runningObject = allProductsArray[i];
     let newItem = document.createElement('li');
     newItem.innerHTML = `${runningObject.productName}: Shown:${runningObject.numOfTimesShown} Clicked:${runningObject.numOfTimesSelected}`;
@@ -108,12 +140,12 @@ function resultHandler() {
   }
   resultButton.removeEventListener('click', resultHandler);
 }
+retrieveProductArrayFromLocalStorage();
 
 leftButton.addEventListener('click', voteHandler);
 centerButton.addEventListener('click', voteHandler);
 rightButton.addEventListener('click', voteHandler);
 resultButton.addEventListener('click', resultHandler);
-renderProduct();
 
 
 
