@@ -31,6 +31,8 @@ let wineGlass = new Product('Wine Glass', "img/wine-glass.jpg");
 // Global Variable
 let allProductsArray = [rollingBag, bananaSlicer, tpIpad, toelessBoots, futureToaster, meatGum, redChair, evilToy, duckbillMuzzle,
   dragonMeat, penSilverware, pawMop, pizzaScissors, sharkBlanket, babyMop, tauntaunBlanket, unicornMeat, wateringCan, wineGlass];
+let indexArray = [];
+let lastGroupArray = [];
 let numberOfMatchUps = 0;
 let numberOfMatchupsAllowed = 25;
 
@@ -47,29 +49,43 @@ let rightButton = document.getElementById('rightButton');
 
 // functions
 function getRandomIndex() {
-  let productChoices = allProductsArray;
-  return Math.floor(Math.random() * (productChoices.length));
+  return Math.floor(Math.random() * (allProductsArray.length));
+}
+
+function getRandomGroup() {
+  while (indexArray.length < 3) {
+    let ranNum = getRandomIndex();
+    if (!indexArray.includes(ranNum)) {
+      indexArray.push(ranNum);
+    }
+  }
 }
 
 function renderProduct() {
-  let product1 = allProductsArray[getRandomIndex()];
-  let product2 = allProductsArray[getRandomIndex()];
-  let product3 = allProductsArray[getRandomIndex()];
-  if (product1 === product2) {
-    product2 = allProductsArray[getRandomIndex()];
+  getRandomGroup();
+  for (let i = 0; i < indexArray.length; i++){
+    if (lastGroupArray.includes(indexArray[i])){
+      //lastGroupArray.pop();
+      console.log(indexArray[i]);
+    }
   }
-  if (product3 === product1 || product3 === product2) {
-    product3 = allProductsArray[getRandomIndex()];
-  }
-  product1.numOfTimesShown++;
-  product2.numOfTimesShown++;
-  product3.numOfTimesShown++;
-  leftImage.src = product1.filePath;
-  leftImage.alt = product1.productName;
-  centerImage.src = product2.filePath;
-  centerImage.alt = product2.productName;
-  rightImage.src = product3.filePath;
-  rightImage.alt = product3.productName;
+  console.log(indexArray);
+  console.log(lastGroupArray.splice(0, 3));
+  let product1 = indexArray.shift();
+  let product2 = indexArray.shift();
+  let product3 = indexArray.shift();
+  lastGroupArray.push(product1);
+  lastGroupArray.push(product2);
+  lastGroupArray.push(product3);
+  allProductsArray[product1].numOfTimesShown++;
+  allProductsArray[product2].numOfTimesShown++;
+  allProductsArray[product3].numOfTimesShown++;
+  leftImage.src = allProductsArray[product1].filePath;
+  leftImage.alt = allProductsArray[product1].productName;
+  centerImage.src = allProductsArray[product2].filePath;
+  centerImage.alt = allProductsArray[product2].productName;
+  rightImage.src = allProductsArray[product3].filePath;
+  rightImage.alt = allProductsArray[product3].productName;
 }
 
 function voteHandler(event) {
@@ -110,7 +126,6 @@ centerButton.addEventListener('click', voteHandler);
 rightButton.addEventListener('click', voteHandler);
 resultButton.addEventListener('click', resultHandler);
 renderProduct();
-
 
 
 
