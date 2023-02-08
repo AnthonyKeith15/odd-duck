@@ -31,8 +31,7 @@ let wineGlass = new Product('Wine Glass', "img/wine-glass.jpg");
 // Global Variable
 let allProductsArray = [rollingBag, bananaSlicer, tpIpad, toelessBoots, futureToaster, meatGum, redChair, evilToy, duckbillMuzzle,
   dragonMeat, penSilverware, pawMop, pizzaScissors, sharkBlanket, babyMop, tauntaunBlanket, unicornMeat, wateringCan, wineGlass];
-let indexArray = [];
-let lastGroupArray = [];
+let indexQueueArray = [];
 let numberOfMatchUps = 0;
 let numberOfMatchupsAllowed = 25;
 
@@ -53,30 +52,19 @@ function getRandomIndex() {
 }
 
 function getRandomGroup() {
-  while (indexArray.length < 3) {
+  while (indexQueueArray.length < 6) {
     let ranNum = getRandomIndex();
-    if (!indexArray.includes(ranNum)) {
-      indexArray.push(ranNum);
+    if (!indexQueueArray.includes(ranNum)) {
+      indexQueueArray.push(ranNum);
     }
   }
 }
 
 function renderProduct() {
   getRandomGroup();
-  for (let i = 0; i < indexArray.length; i++){
-    if (lastGroupArray.includes(indexArray[i])){
-      //lastGroupArray.pop();
-      console.log(indexArray[i]);
-    }
-  }
-  console.log(indexArray);
-  console.log(lastGroupArray.splice(0, 3));
-  let product1 = indexArray.shift();
-  let product2 = indexArray.shift();
-  let product3 = indexArray.shift();
-  lastGroupArray.push(product1);
-  lastGroupArray.push(product2);
-  lastGroupArray.push(product3);
+  let product1 = indexQueueArray.shift();
+  let product2 = indexQueueArray.shift();
+  let product3 = indexQueueArray.shift();
   allProductsArray[product1].numOfTimesShown++;
   allProductsArray[product2].numOfTimesShown++;
   allProductsArray[product3].numOfTimesShown++;
@@ -109,7 +97,6 @@ function voteHandler(event) {
   }
 }
 
-
 function resultHandler() {
   // Selects the ul by id 
   let resultsList = document.getElementById('resultsList');
@@ -119,6 +106,7 @@ function resultHandler() {
     newItem.innerHTML = `${runningObject.productName}: Shown:${runningObject.numOfTimesShown} Clicked:${runningObject.numOfTimesSelected}`;
     resultsList.appendChild(newItem);
   }
+  resultButton.removeEventListener('click', resultHandler);
 }
 
 leftButton.addEventListener('click', voteHandler);
