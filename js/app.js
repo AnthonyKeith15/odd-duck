@@ -107,6 +107,72 @@ function renderProduct() {
   rightImage.alt = allProductsArray[product3].productName;
 }
 
+function createChartLabels() {
+  let graphData = [];
+  for (let i = 0; i < allProductsArray.length; i++) {
+    graphData.push(allProductsArray[i].productName);
+  }
+  return graphData;
+}
+
+function createDataNumOfClicks() {
+  let graphData = [];
+  for (let i = 0; i < allProductsArray.length; i++) {
+    graphData.push(allProductsArray[i].numOfTimesSelected);
+  }
+  return graphData;
+}
+function createDataTotalShown() {
+  let graphData = [];
+  for (let i = 0; i < allProductsArray.length; i++) {
+    graphData.push(allProductsArray[i].numOfTimesShown);
+  }
+  return graphData;
+}
+
+function createChartData() {
+  const data = {
+    labels: createChartLabels(),
+    datasets: [{
+      label: 'Number of Times Seen',
+      data: createDataTotalShown(),
+      fill: true,
+      backgroundColor: 'rgba(237, 242, 244, 0.3)',
+      borderColor: 'rgb(237, 242, 244)',
+      pointBackgroundColor: 'rgb(237, 242, 244)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(255, 99, 132)'
+    }, {
+      label: 'Number of Times Clicked',
+      data: createDataNumOfClicks(),
+      fill: true,
+      backgroundColor: 'rgba(239, 118, 122, 0.9)',
+      borderColor: 'rgb(239, 118, 122)',
+      pointBackgroundColor: 'rgb(239, 118, 122)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(54, 162, 235)'
+    }]
+  };
+  return data;
+}
+function createChart() {
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'radar',
+    data: createChartData(),
+    options: {
+      elements: {
+        line: {
+          borderWidth: 3
+        }
+      }
+    },
+  });
+
+}
 function voteHandler(event) {
   // Selects the parent node of what button was selected
   let parentNode = event.target.parentNode;
@@ -139,6 +205,7 @@ function resultHandler() {
     resultsList.appendChild(newItem);
   }
   resultButton.removeEventListener('click', resultHandler);
+  createChart();
 }
 retrieveProductArrayFromLocalStorage();
 
