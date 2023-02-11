@@ -81,6 +81,7 @@ function getRandomIndex() {
   return Math.floor(Math.random() * (allProductsArray.length));
 }
 
+// creates random group of 3 products to display
 function getRandomGroup() {
   while (indexQueueArray.length < 6) {
     let ranNum = getRandomIndex();
@@ -89,7 +90,7 @@ function getRandomGroup() {
     }
   }
 }
-
+// renders each product indiviually
 function renderProduct() {
   getRandomGroup();
   let product1 = indexQueueArray.shift();
@@ -114,7 +115,7 @@ function createChartLabels() {
   }
   return graphData;
 }
-
+// creates the num of times clicked data for the chart
 function createDataNumOfClicks() {
   let graphData = [];
   for (let i = 0; i < allProductsArray.length; i++) {
@@ -122,6 +123,7 @@ function createDataNumOfClicks() {
   }
   return graphData;
 }
+// creates the num of times shown for the shart
 function createDataTotalShown() {
   let graphData = [];
   for (let i = 0; i < allProductsArray.length; i++) {
@@ -130,6 +132,7 @@ function createDataTotalShown() {
   return graphData;
 }
 
+// fills the chart with data from the functions above
 function createChartData() {
   const data = {
     labels: createChartLabels(),
